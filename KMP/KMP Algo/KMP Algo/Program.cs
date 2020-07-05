@@ -11,7 +11,11 @@ namespace KMP_Algo
             String pattern2 = "repeated";
             String pattern3 = "aaabbaacdaaabbaac";
 
-            KMPScanner scanner = new KMPScanner(text, pattern3, false);
+
+            String text2 = "ababcabcabababd";
+            String pattern4 = "ababd";
+
+            KMPScanner scanner = new KMPScanner(text2, pattern4, false);
         }
     }
 

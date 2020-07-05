@@ -10,6 +10,7 @@ namespace KMP_Algo
         private string FullText;
         private string Pattern;
         private bool CaseSensitive;
+        private int[] FaultTable;
 
         internal KMPScanner(string fullText, string pattern, bool caseSensitive)
         {
@@ -17,16 +18,18 @@ namespace KMP_Algo
             this.Pattern = pattern;
             this.CaseSensitive = caseSensitive;
 
-            int[] testCharTable = FaultTable(this.Pattern);
+            this.FaultTable = GetFaultTable(this.Pattern);
 
-            for (int i = 0; i < testCharTable.Length; i++)
-                Console.Write(testCharTable[i]);
+            for (int i = 0; i < FaultTable.Length; i++)
+                Console.Write(FaultTable[i]);
+            Console.Write("\n");
 
+            FindString();
 
         }
 
         // Returns the fault table for where to default when mismatch
-        internal int[] FaultTable(string pattern)
+        internal int[] GetFaultTable(string pattern)
         {
 
             int[] res = new int[pattern.Length];
@@ -49,6 +52,40 @@ namespace KMP_Algo
 
             return res;
         }
+
+
+        // Returns the indexes of which the pattern is found in the full text
+        internal int[] FindString()
+        {
+
+            int j = -1;
+
+            char[] patChars = this.Pattern.ToCharArray();
+
+            for (int i = 0; i < FullText.Length; i++)
+            {
+
+                if (patChars[j + 1] == FullText[i])
+                {
+                    Console.Write(j);
+                    j++;
+                    if(j == patChars.Length)
+                    {
+                        Console.Write("\nFound pattern at index ", i - patChars.Length);
+                    }
+                }
+                else
+                    j = FaultTable[j];
+
+            }
+
+
+
+            return null;
+
+        }
+
+
 
     }
 }
