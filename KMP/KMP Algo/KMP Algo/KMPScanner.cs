@@ -18,23 +18,27 @@ namespace KMP_Algo
             this.Pattern = pattern;
             this.CaseSensitive = caseSensitive;
 
-            this.FaultTable = GetFaultTable(this.Pattern);
+            this.FaultTable = GetFaultTable();
+
+            /*
 
             for (int i = 0; i < FaultTable.Length; i++)
                 Console.Write(FaultTable[i]);
             Console.Write("\n");
+
+            */
 
             FindString();
 
         }
 
         // Returns the fault table for where to default when mismatch
-        internal int[] GetFaultTable(string pattern)
+        internal int[] GetFaultTable()
         {
 
-            int[] res = new int[pattern.Length];
+            int[] res = new int[this.Pattern.Length];
 
-            char[] patChars = pattern.ToCharArray();
+            char[] patChars = this.Pattern.ToCharArray();
 
             int counter = 0;
 
@@ -64,18 +68,22 @@ namespace KMP_Algo
 
             for (int i = 0; i < FullText.Length; i++)
             {
-
+                
                 if (patChars[j + 1] == FullText[i])
                 {
-                    Console.Write(j);
                     j++;
                     if(j == patChars.Length)
                     {
-                        Console.Write("\nFound pattern at index ", i - patChars.Length);
+                        Console.Write("Found pattern at index ", i - patChars.Length, "\n");
                     }
                 }
                 else
-                    j = FaultTable[j];
+                {
+                    if (j > -1)
+                        j = FaultTable[j] - 1;
+                    i--;
+                }
+                    
 
             }
 
