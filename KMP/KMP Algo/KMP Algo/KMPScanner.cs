@@ -72,15 +72,15 @@ namespace KMP_Algo
                 if (patChars[j + 1] == FullText[i])
                 {
                     j++;
-                    if(j == patChars.Length)
+                    if(j == patChars.Length - 1)
                     {
-                        Console.Write("Found pattern at index ", i - patChars.Length, "\n");
+                        Console.Write("Found pattern at index {0} \n", i - patChars.Length);
                     }
                 }
-                else
+                else if(j > -1)
                 {
-                    if (j > -1)
-                        j = FaultTable[j] - 1;
+                    
+                    j = FaultTable[j] - 1;
                     i--;
                 }
                     
