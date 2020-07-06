@@ -28,6 +28,8 @@ namespace KMP_Algo
 
             */
 
+            Console.Write("Searching: {0}\nfor: {1}\n", this.FullText, this.Pattern);
+
             FindString();
 
         }
@@ -66,21 +68,21 @@ namespace KMP_Algo
 
             char[] patChars = this.Pattern.ToCharArray();
 
-            for (int i = 0; i < FullText.Length; i++)
+            for (int i = 0; i < this.FullText.Length; i++)
             {
                 
-                if (patChars[j + 1] == FullText[i])
+                if (patChars[j + 1] == this.FullText[i])
                 {
                     j++;
                     if(j == patChars.Length - 1)
                     {
                         Console.Write("Found pattern at index {0} \n", i - patChars.Length);
+                        j = -1;
                     }
                 }
                 else if(j > -1)
                 {
-                    
-                    j = FaultTable[j] - 1;
+                    j = this.FaultTable[j] - 1;
                     i--;
                 }
                     
